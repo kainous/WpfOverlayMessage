@@ -39,5 +39,10 @@ namespace OverlayMessage.Demo
         {
             test.Ask("Asking with callback", a => MessageBox.Show(a.ToString()));
         }
+
+        private void OnMessageBox(object sender, RoutedEventArgs e)
+        {
+            Notifier.Interrupt(null, "Test", () => { });
+        }
     }
 }

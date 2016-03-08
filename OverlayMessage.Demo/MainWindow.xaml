@@ -14,6 +14,7 @@
                 <Button Content="Show Interruption..." Click="OnShowInterruption"/>
                 <Button Content="Ask Async..." Click="OnAskAsync"/>
                 <Button Content="Ask Callback..." Click="OnAskCallback"/>
+                <Button Content="Message box..." Click="OnMessageBox"/>
             </UniformGrid>
             <Grid Name="test">
                 <Label Content="Test this"/>
