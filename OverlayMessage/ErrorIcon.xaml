@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="System.Windows.Controls.ErrorIcon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Viewbox>
+        <Canvas Width="44.0031995773315" Height="47.2580805569887">
+            <Canvas Canvas.Left="-1.99438571929932" Canvas.Top="0.00807869434356689">
+                <Canvas>
+                    <Path Data="M40.875,36.75A15.75,9.375,0,1,1,9.375,36.75A15.75,9.375,0,1,1,40.875,36.75z" Stroke="{x:Null}" StrokeThickness="1" Opacity="0.63068183">
+                        <Path.Fill>
+                            <RadialGradientBrush Center="25.125,36.75" RadiusX="15.75" RadiusY="15.75" GradientOrigin="25.125,36.75" MappingMode="Absolute">
+                                <RadialGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF000000" Offset="0" ></GradientStop>
+                                    <GradientStop Color="#00000000" Offset="1" ></GradientStop>
+                                </RadialGradientBrush.GradientStops>
+                                <RadialGradientBrush.Transform>
+                                    <MatrixTransform Matrix="1,0,0,0.595237970352173,-2.30067806880542E-15,14.875" ></MatrixTransform>
+                                </RadialGradientBrush.Transform>
+                            </RadialGradientBrush>
+                        </Path.Fill>
+                        <Path.RenderTransform>
+                            <MatrixTransform Matrix="1.1738029718399,0,0,0.600000023841858,-5.26586580276489,19.5750007629395" ></MatrixTransform>
+                        </Path.RenderTransform>
+                    </Path>
+                    <Path Data="M15.591006,0.4919213L32.676311,0.4919213 45.497585,13.586385 45.497585,31.48003 32.848986,43.496929 15.418649,43.496929 2.4943857,30.658264 2.4943857,13.464078 15.591006,0.4919213z" Stroke="#FF860000" StrokeThickness="1" StrokeMiterLimit="4">
+                        <Path.Fill>
+                            <LinearGradientBrush StartPoint="23.995985,18.105337" EndPoint="41.047836,35.959785" MappingMode="Absolute" SpreadMethod="Pad">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFCC0000" Offset="0" ></GradientStop>
+                                    <GradientStop Color="#FFB30000" Offset="1" ></GradientStop>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Path.Fill>
+                    </Path>
+                    <Path Data="M16.020655,1.5003424L32.248563,1.5003424 44.496456,13.922717 44.496456,31.037001 32.638472,42.48783 15.870253,42.48783 3.5090792,30.208718 3.5090792,13.84561 16.020655,1.5003424z" Fill="{x:Null}" StrokeThickness="1.00000023841858" StrokeMiterLimit="4" Opacity="0.81318683">
+                        <Path.Stroke>
+                            <LinearGradientBrush StartPoint="15.737001,10.5036" EndPoint="53.570126,45.374317" MappingMode="Absolute" SpreadMethod="Pad">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFFF8B8B" Offset="0" ></GradientStop>
+                                    <GradientStop Color="#FFEC1B1B" Offset="1" ></GradientStop>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Path.Stroke>
+                    </Path>
+                    <Path Data="M15.6875,0.75L2.75,13.5625 2.75,30.5625 5.6875,33.46875C22.450041,33.526299,22.164665,20.450067,45.25,21.59375L45.25,13.6875 32.5625,0.75 15.6875,0.75z" Stroke="{x:Null}" StrokeThickness="1" Opacity="0.28977272">
+                        <Path.Fill>
+                            <RadialGradientBrush Center="16.75,10.666344" RadiusX="21.25" RadiusY="21.25" GradientOrigin="16.75,10.666344" MappingMode="Absolute">
+                                <RadialGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFFFFFFF" Offset="0" ></GradientStop>
+                                    <GradientStop Color="#00FFFFFF" Offset="1" ></GradientStop>
+                                </RadialGradientBrush.GradientStops>
+                                <RadialGradientBrush.Transform>
+                                    <MatrixTransform Matrix="4.15495681762695,-2.97920617820088E-24,3.25565696040925E-24,3.19872307777405,-52.845531463623,-23.5092105865479" ></MatrixTransform>
+                                </RadialGradientBrush.Transform>
+                            </RadialGradientBrush>
+                        </Path.Fill>
+                    </Path>
+                    <Path Data="M16.767175,10.5L12.5,14.767175 20.035075,22.30225 12.5,29.837325 16.767175,34.104501 24.30225,26.569425 31.837325,34.104501 36.104501,29.837325 28.569425,22.30225 36.104501,14.767175 31.837325,10.5 24.30225,18.035075 16.767175,10.5z" StrokeThickness="0.999999582767487" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeDashCap="Round" StrokeLineJoin="Round" StrokeMiterLimit="4">
+                        <Path.Fill>
+                            <RadialGradientBrush Center="24.30225,33.30225" RadiusX="12.30225" RadiusY="12.30225" GradientOrigin="24.30225,33.30225" MappingMode="Absolute">
+                                <RadialGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFFFFFFF" Offset="0" ></GradientStop>
+                                    <GradientStop Color="#FFDBDBDB" Offset="1" ></GradientStop>
+                                </RadialGradientBrush.GradientStops>
+                                <RadialGradientBrush.Transform>
+                                    <MatrixTransform Matrix="1.69398105144501,-5.77571385002414E-16,5.77571385002414E-16,1.69398105144501,-16.8652896881104,-25.1111106872559" ></MatrixTransform>
+                                </RadialGradientBrush.Transform>
+                            </RadialGradientBrush>
+                        </Path.Fill>
+                        <Path.Stroke>
+                            <LinearGradientBrush StartPoint="21.75,13.80225" EndPoint="24.30225,33.05225" MappingMode="Absolute" SpreadMethod="Pad">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFFF0202" Offset="0" ></GradientStop>
+                                    <GradientStop Color="#FFFF9B9B" Offset="1" ></GradientStop>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Path.Stroke>
+                    </Path>
+                </Canvas>
+            </Canvas>
+        </Canvas>
+    </Viewbox>
+</UserControl>

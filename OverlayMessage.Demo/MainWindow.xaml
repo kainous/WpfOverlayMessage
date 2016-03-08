@@ -1,0 +1,23 @@
+﻿<Window x:Class="OverlayMessage.Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:overlay="clr-namespace:System.Windows.Controls;assembly=OverlayMessage"
+        xmlns:local="clr-namespace:OverlayMessage.Demo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <DockPanel>
+            <Label DockPanel.Dock="Left">Hello</Label>
+            <UniformGrid DockPanel.Dock="Top" Rows="1">
+                <Button Content="Show Interruption..." Click="OnShowInterruption"/>
+                <Button Content="Ask Async..." Click="OnAskAsync"/>
+                <Button Content="Ask Callback..." Click="OnAskCallback"/>
+            </UniformGrid>
+            <Grid Name="test">
+                <Label Content="Test this"/>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>
