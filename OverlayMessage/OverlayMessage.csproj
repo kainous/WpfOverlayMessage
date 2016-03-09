@@ -55,7 +55,9 @@
     <Compile Include="ErrorIcon.xaml.cs">
       <DependentUpon>ErrorIcon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NotificationButtons.cs" />
     <Compile Include="Notifier.cs" />
+    <Compile Include="NotifierInformation.cs" />
     <Compile Include="OverlayMessage.xaml.cs">
       <DependentUpon>OverlayMessage.xaml</DependentUpon>
     </Compile>

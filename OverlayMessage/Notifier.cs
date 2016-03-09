@@ -31,30 +31,22 @@ namespace System.Windows.Controls
             }
         }
 
-        private static void ShowNewWindow(
-            Window parent
-          , OverlayMessage display
-          , string message
-          , Action<int> callback
-          , bool bringToForeground
-          , bool topMost)
+        private static void ShowNewWindow(Window parent, NotifierInformation info)
         {
+            var display = info.GetDisplay();            
+
             var window = new Window
             {
                 Content = display,
                 WindowStyle = WindowStyle.None,
                 Background = Brushes.Transparent,
                 AllowsTransparency = true,
-                Topmost = topMost,
+                Topmost = true,
                 Owner = parent,
                 ShowInTaskbar = false
             };
 
-            display.Closed += (o, e) =>
-            {
-                window.Close();
-                callback(e.Data);
-            };
+            display.Closed += (o, e) => window.Close();
 
             window.ShowDialog();
         }
@@ -73,7 +65,7 @@ namespace System.Windows.Controls
             {
                 Background = new SolidColorBrush(Color.FromArgb(0x55, 0, 0, 0)),
                 Child = display
-            };            
+            };
 
             int zIndex = parent.Children
                                .OfType<UIElement>()
@@ -86,7 +78,7 @@ namespace System.Windows.Controls
             {
                 parent.Children.Remove(layoutRoot);
                 callback?.Invoke(e.Data);
-            };            
+            };
         }
 
         private static void InterruptCore(Panel parentPanel, string message, string title, Action<int> callback = null, bool bringToForeground = true)
@@ -105,12 +97,17 @@ namespace System.Windows.Controls
                 }
                 else
                 {
-                    var display = new OverlayMessage(null)
+                    var info = new NotifierInformation
                     {
-                        Content = message,
-                        Header = title
+                        Message = message,
+                        Title = title,
+                        ParentPanel = parentPanel,
+                        Buttons = NotificationButtons.OK
                     };
-                    ShowNewWindow(window, display, message, callback, true, true);
+
+                    info.Completed += (o, e) => callback(e.Data);
+
+                    ShowNewWindow(window, info);
                 }
             }
             else
