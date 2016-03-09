@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace System.Windows.Controls
 {
     public static class Notifier
     {
-        private static IEnumerable<T> FindVisualChildren<T>(this DependencyObject obj) 
+        private static IEnumerable<T> FindVisualChildren<T>(this DependencyObject obj)
             where T : DependencyObject
         {
             if (obj != null)
@@ -19,8 +20,9 @@ namespace System.Windows.Controls
                 for (int i = 0; i < count; i++)
                 {
                     var child = VisualTreeHelper.GetChild(obj, i);
-                    T typedChild = child as T;                                            
-                    if (child != null)
+
+                    var typedChild = child as T;
+                    if (typedChild != null)
                     { yield return typedChild; }
 
                     foreach (var subchild in FindVisualChildren<T>(child))
@@ -29,65 +31,100 @@ namespace System.Windows.Controls
             }
         }
 
-        private static void InterruptCore(Panel parentPanel, string message, Action callback = null)
+        private static void ShowNewWindow(
+            Window parent
+          , OverlayMessage display
+          , string message
+          , Action<int> callback
+          , bool bringToForeground
+          , bool topMost)
         {
-            var display = new OverlayMessage(parentPanel);
-            display.Content = message;
-
-            if (callback != null)
-            { display.Closed += (o, e) => callback?.Invoke(); }
-
-            if (parentPanel == null)
+            var window = new Window
             {
-                parentPanel = Application.Current   
-                                         .MainWindow
-                                         .FindVisualChildren<Panel>()
-                                         .FirstOrDefault();
-            }
+                Content = display,
+                WindowStyle = WindowStyle.None,
+                Background = Brushes.Transparent,
+                AllowsTransparency = true,
+                Topmost = topMost,
+                Owner = parent,
+                ShowInTaskbar = false
+            };
 
-            if (parentPanel == null)
+            display.Closed += (o, e) =>
             {
-                var grid = new Grid();
-                var window = new Window();
-                window.Content = grid;
-                display.Closed += (o, e) => window.Close();
-                parentPanel = grid;                
-                window.Show();
-            }
+                window.Close();
+                callback(e.Data);
+            };
 
-            parentPanel.Children.Add(display);
-            int zIndex = parentPanel.Children
-                                    .OfType<UIElement>()
-                                    .Max(Panel.GetZIndex) + 1;
-
-            Panel.SetZIndex(display, zIndex);
+            window.ShowDialog();
         }
 
-        public static async Task InterruptAsync(this Panel parentPanel, string message)
+        private static void ShowEmbedded(Panel parent, object message, object title, Action<int> callback)
         {
-            await Application.Current.Dispatcher.InvokeAsync(() => InterruptCore(parentPanel, message));
+            //Assert that parent is never null at this point            
+
+            var display = new OverlayMessage(parent)
+            {
+                Content = message,
+                Header = title
+            };
+
+            var layoutRoot = new Border
+            {
+                Background = new SolidColorBrush(Color.FromArgb(0x55, 0, 0, 0)),
+                Child = display
+            };            
+
+            int zIndex = parent.Children
+                               .OfType<UIElement>()
+                               .Max(Panel.GetZIndex) + 1;
+
+            Panel.SetZIndex(layoutRoot, zIndex);
+
+            parent.Children.Add(layoutRoot);
+            display.Closed += (o, e) =>
+            {
+                parent.Children.Remove(layoutRoot);
+                callback?.Invoke(e.Data);
+            };            
         }
 
-        public static void Interrupt(this Panel parentPanel, string message, Action callback)
-        { Application.Current.Dispatcher.Invoke(() => InterruptCore(parentPanel, message, callback)); }
+        private static void InterruptCore(Panel parentPanel, string message, string title, Action<int> callback = null, bool bringToForeground = true)
+        {
+            if (parentPanel == null)
+            {
+                var window = Application.Current
+                                        .MainWindow;
+
+                if ((window?.IsVisible == true) && (window?.WindowState != WindowState.Minimized))
+                {
+                    parentPanel = window.FindVisualChildren<Panel>()
+                                        .FirstOrDefault();
+
+                    ShowEmbedded(parentPanel, message, title, callback);
+                }
+                else
+                {
+                    var display = new OverlayMessage(null)
+                    {
+                        Content = message,
+                        Header = title
+                    };
+                    ShowNewWindow(window, display, message, callback, true, true);
+                }
+            }
+            else
+            { ShowEmbedded(parentPanel, message, title, callback); }
+        }
+
+        public static async Task InterruptAsync(this Panel parentPanel, string message, string title = "")
+        { await Application.Current.Dispatcher.InvokeAsync(() => InterruptCore(parentPanel, message, title)); }
+
+        public static void Interrupt(this Panel parentPanel, string message, Action<int> callback, string title = "")
+        { Application.Current.Dispatcher.Invoke(() => InterruptCore(parentPanel, message, title, callback)); }
 
         public static void Ask(this Panel parentPanel, string message, Action<int> callback)
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                var display = new OverlayMessage(parentPanel);
-
-                display.Content = message;
-
-                display.Closed += (o, e) => callback?.Invoke(e.Data);
-                parentPanel.Children.Add(display);
-                int zIndex = parentPanel.Children
-                                        .OfType<UIElement>()
-                                        .Max(Panel.GetZIndex) + 1;
-
-                Panel.SetZIndex(display, zIndex);
-            });
-        }
+        { Application.Current.Dispatcher.Invoke(() => ShowEmbedded(parentPanel, message, "", callback)); }
 
         //Synchronous call must occur in message box style
         //public static int Ask(string message)
@@ -117,22 +154,15 @@ namespace System.Windows.Controls
         public static async Task<int> AskAsync(this Panel parentPanel, string message)
         {
             int result = -1;
-            var display = new OverlayMessage(parentPanel);
-            display.Content = message;
-
             using (var semaphore = new SemaphoreSlim(0, 1))
             {
-                display.Closed += (o, e) =>
+                var callback = new Action<int>(a =>
                 {
-                    result = e.Data;
+                    result = a;
                     semaphore.Release();
-                };
-                parentPanel.Children.Add(display);
-                int zIndex = parentPanel.Children
-                                        .OfType<UIElement>()
-                                        .Max(Panel.GetZIndex) + 1;
+                });
 
-                Panel.SetZIndex(display, zIndex);
+                Application.Current.Dispatcher.Invoke(() => ShowEmbedded(parentPanel, message, "", callback));
                 await semaphore.WaitAsync();
             }
             return result;

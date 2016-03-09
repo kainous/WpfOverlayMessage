@@ -38,7 +38,6 @@ namespace System.Windows.Controls
 
         private void OnClose(object sender, RoutedEventArgs e)
         {
-            _Panel?.Children?.Remove(this);
             Closed?.Invoke(this, new DataEventArgs<int>(0));
             Closed = null;  //Clear all subscribers
         }

@@ -8,52 +8,50 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <HeaderedContentControl.Template>
         <ControlTemplate TargetType="HeaderedContentControl">
-            <Border Background="#55000000" >
-                <Border x:Name="RoundedBorder" CornerRadius="10" BorderBrush="Black" BorderThickness="2" Background="White"
+            <Border x:Name="RoundedBorder" CornerRadius="10" BorderBrush="Black" BorderThickness="2" Background="White"
                         HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Grid Name="LayoutRoot">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                <Grid Name="LayoutRoot">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="25"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
 
-                        <Border Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,-1,0" CornerRadius="10,10,0,0">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Color="#FF770000" Offset="0"/>
-                                    <GradientStop Color="#CC880000" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
+                    <Border Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,-1,0" CornerRadius="10,10,0,0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#FF770000" Offset="0"/>
+                                <GradientStop Color="#CC880000" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>
 
-                        <local:ErrorIcon Grid.Row="0" Grid.Column="0" Padding="5,2,0,2"/>
+                    <local:ErrorIcon Grid.Row="0" Grid.Column="0" Padding="5,2,0,2"/>
 
-                        <Grid Grid.Column="1">
-                            <Label FontSize="16" Foreground="White" Grid.Row="0" Padding="10"
+                    <Grid Grid.Column="1">
+                        <Label FontSize="16" Foreground="White" Grid.Row="0" Padding="10"
                                    FontFamily="Arial" VerticalAlignment="Center">
 
-                                <Label.Resources>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextWrapping" Value="NoWrap"/>
-                                        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
-                                    </Style>
-                                </Label.Resources>
-                                <ContentPresenter ContentSource="Header"/>
-                            </Label>
-                        </Grid>
-                        <Label Grid.Row="1" Grid.ColumnSpan="2" FontSize="12" FontFamily="Segue UI" Foreground="Black" Margin="5">
-                            <ContentPresenter ContentSource="Content"/>
+                            <Label.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="NoWrap"/>
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                </Style>
+                            </Label.Resources>
+                            <ContentPresenter ContentSource="Header"/>
                         </Label>
-                        <Button Grid.Row="2" Grid.ColumnSpan="2" Height="30" Width="80" Content="OK" Margin="10" Click="OnClose"/>
                     </Grid>
-                </Border>
+                    <Label Grid.Row="1" Grid.ColumnSpan="2" FontSize="12" FontFamily="Segue UI" Foreground="Black" Margin="5">
+                        <ContentPresenter ContentSource="Content"/>
+                    </Label>
+                    <Button Grid.Row="2" Grid.ColumnSpan="2" Height="30" Width="80" Content="OK" Margin="10" Click="OnClose"/>
+                </Grid>
             </Border>
         </ControlTemplate>
     </HeaderedContentControl.Template>

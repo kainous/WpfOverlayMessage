@@ -42,7 +42,9 @@ namespace OverlayMessage.Demo
 
         private void OnMessageBox(object sender, RoutedEventArgs e)
         {
-            Notifier.Interrupt(null, "Test", () => { });
+            this.WindowState = WindowState.Minimized;
+            Notifier.Interrupt(null, "Test", _ => { });
+            this.WindowState = WindowState.Normal;
         }
     }
 }
