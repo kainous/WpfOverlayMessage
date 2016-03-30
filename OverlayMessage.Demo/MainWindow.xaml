@@ -9,15 +9,44 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <DockPanel>
-            <Label DockPanel.Dock="Left">Hello</Label>
+            <Label Name="UpdatingBox" DockPanel.Dock="Left">
+                <GroupBox Header="DisplayType">
+                    <StackPanel>
+                        <RadioButton GroupName="DisplayType" Name="InformationButton" Content="Information"/>
+                        <RadioButton GroupName="DisplayType" Name="ErrorButton" Content="Error"/>
+                        <RadioButton GroupName="DisplayType" Name="ComplicatedButton" Content="Complicated"/>
+                    </StackPanel>
+                </GroupBox>
+            </Label>
+            <Grid DockPanel.Dock="Top" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label   Grid.Row="0" Grid.Column="0" Content="Title"/>
+                <TextBox Grid.Row="0" Grid.Column="1"/>
+
+                <Label   Grid.Row="1" Grid.Column="0" Content="Message"/>
+                <TextBox Grid.Row="1" Grid.Column="1"/>
+                
+            </Grid>
             <UniformGrid DockPanel.Dock="Top" Rows="1">
                 <Button Content="Show Interruption..." Click="OnShowInterruption"/>
                 <Button Content="Ask Async..." Click="OnAskAsync"/>
                 <Button Content="Ask Callback..." Click="OnAskCallback"/>
                 <Button Content="Message box..." Click="OnMessageBox"/>
+                <Button Content="Complicated box..." Click="OnComplicatedBox"/>
             </UniformGrid>
             <Grid Name="test">
-                <Label Content="Test this"/>
+                <Label>
+                    <TextBlock Name="UpdateThis" TextWrapping="WrapWithOverflow"/>
+                </Label>
             </Grid>
         </DockPanel>
     </Grid>

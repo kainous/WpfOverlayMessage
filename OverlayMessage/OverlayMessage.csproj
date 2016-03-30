@@ -52,9 +52,14 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICloseableControl.cs" />
     <Compile Include="ErrorIcon.xaml.cs">
       <DependentUpon>ErrorIcon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExampleCustomizedOverlay.xaml.cs">
+      <DependentUpon>ExampleCustomizedOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExampleInformation.cs" />
     <Compile Include="NotificationButtons.cs" />
     <Compile Include="Notifier.cs" />
     <Compile Include="NotifierInformation.cs" />
@@ -86,6 +91,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ErrorIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExampleCustomizedOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

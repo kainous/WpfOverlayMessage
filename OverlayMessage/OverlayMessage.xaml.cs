@@ -14,13 +14,6 @@ using System.Windows.Shapes;
 
 namespace System.Windows.Controls
 {
-    public class DataEventArgs<T> : EventArgs
-    {
-        public T Data { get; private set; }
-        public DataEventArgs(T data)
-        { Data = data; }
-    }
-
     /// <summary>
     /// Interaction logic for OverlayMessage.xaml
     /// </summary>
@@ -28,7 +21,7 @@ namespace System.Windows.Controls
     {
         private readonly Panel _Panel;
 
-        public EventHandler<DataEventArgs<int>> Closed;
+        public EventHandler<int> Closed;
 
         public OverlayMessage(Panel panel)
         {
@@ -38,7 +31,7 @@ namespace System.Windows.Controls
 
         private void OnClose(object sender, RoutedEventArgs e)
         {
-            Closed?.Invoke(this, new DataEventArgs<int>(0));
+            Closed?.Invoke(this, 0);
             Closed = null;  //Clear all subscribers
         }
     }
